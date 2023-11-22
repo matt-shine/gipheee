@@ -42,7 +42,12 @@ function App() {
     setTotalResults(pagination.total_count);
     setOffset(pagination.offset + PAGE_SIZE);
     
-    setResults([...results, ...data.map((d) => ({ url: d.images.fixed_height.url, id: d.id }))])
+    const newResults = data.map((d) => ({ url: d.images.fixed_height.url, id: d.id }))
+      
+    // Didn't have time to figure out exactly why I would sometimes get duplicates in results, so this is more of a quick fix
+    const dedupedResults =[...results, ...newResults].filter((value, index, self) => index === self.findIndex((t) => (t.id === value.id)));
+    
+    setResults(dedupedResults);
   }
 
   const handleQueryChanged = (newQuery: string) => {
