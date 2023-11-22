@@ -1,3 +1,5 @@
+import ResultItem from "./ResultItem";
+
 type ResultsProps = {
   gifs: Gif[]
 };
@@ -7,7 +9,7 @@ type ResultsProps = {
 const Results: React.FC<ResultsProps> = ({ gifs }) => {
   return (
     <div className="results">
-      {gifs.map((gif) => <img key={gif.id} src={gif.url} />)}
+      {gifs.map((gif) => <ResultItem gif={gif} key={gif.id} />)}
     </div>
   )
 }

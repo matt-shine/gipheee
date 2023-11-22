@@ -60,3 +60,13 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+.placeholder {
+  min-height: 200px;
+  background: #3b3b3b;
+  border: 2px solid white;
+}
+
+img.loading {
+  display: none;
+}
