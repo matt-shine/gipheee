@@ -4,8 +4,6 @@ type ResultsProps = {
   gifs: Gif[]
 };
 
-
-
 const Results: React.FC<ResultsProps> = ({ gifs }) => {
   return (
     <div className="results">
