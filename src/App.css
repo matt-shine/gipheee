@@ -19,8 +19,15 @@ main {
   margin-bottom: 25px;
 }
 
+.search {
+  min-height: 3rem;
+  display: flex;
+  width: 100%;
+}
+
 input {
   height: 3rem;
+  width: 100%;
   font-size: large;
   padding: .25rem;
 }

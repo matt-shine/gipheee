@@ -1,10 +1,20 @@
-type SearchBarProps = unknown;
+import { ChangeEvent } from "react";
+import debounce from "../util/debounce";
 
-const SearchBar: React.FC<SearchBarProps> = () => {
+type SearchBarProps = {
+  onChange: (q: string) => void
+};
+
+const SearchBar: React.FC<SearchBarProps> = ({ onChange }) => {
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    onChange(e.target.value);
+  }
+
   return (
-    <>
-      <input type="text" autoComplete="off" placeholder="Search for awesome gifs..." />
-    </>
+    <div className="search">
+      <input type="text" autoComplete="off" placeholder="Search for awesome gifs..." onChange={debounce(handleChange, 300)} />
+    </div>
   )
 }
 

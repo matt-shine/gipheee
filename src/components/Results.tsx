@@ -1,9 +1,13 @@
-type ResultsProps = unknown;
+type ResultsProps = {
+  gifs: Gif[]
+};
 
-const Results: React.FC<ResultsProps> = () => {
+
+
+const Results: React.FC<ResultsProps> = ({ gifs }) => {
   return (
     <div className="results">
-      results go here 🤩
+      {gifs.map((gif) => <img key={gif.id} src={gif.url} />)}
     </div>
   )
 }
