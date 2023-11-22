@@ -7,6 +7,7 @@ type SearchBarProps = {
 
 const SearchBar: React.FC<SearchBarProps> = ({ onChange }) => {
 
+  // Debounce - we don't want to get rate limited!
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   }

@@ -6,6 +6,8 @@ type ResultItemProps = {
 };
 
 const ResultItem: React.FC<ResultItemProps> = ({ gif }) => {
+  // We listen to the images onload event to know when it's loaded, until it's loaded we'll show a placeholder
+  // and set display: none on the image.
   const [loaded, setLoaded] = useState<boolean>(false);
 
   const handleLoaded = () => {

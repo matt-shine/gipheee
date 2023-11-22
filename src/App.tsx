@@ -19,7 +19,12 @@ function App() {
   const [offset, setOffset] = useState<number>(0);
   const [totalResults, setTotalResults] = useState<number>(0);
 
-  const doFetch = async (queryString: string) => {
+  /**
+   * Fetches gifs from the Giphy API
+   * 
+   * @param queryString 
+   */
+  const doFetch = async (queryString: string = '') => {
     const params = new URLSearchParams({
       api_key: API_KEY,
       limit: PAGE_SIZE.toString(),
@@ -28,6 +33,7 @@ function App() {
       ...(offset ?  { offset: offset.toString() } : {})
     });
 
+    // Search if we have querystring, otherwise retrieve from trending endpoint
     const url = queryString ? SEARCH_ENDPOINT : TRENDING_ENDPOINT;
 
     const response = await fetch(`${url}?${params}`);
@@ -40,8 +46,11 @@ function App() {
     const { data, pagination } = await response.json();
 
     setTotalResults(pagination.total_count);
+
+    // update the offset so the next call to doFetch() starts at offset + PAGE_SIZE
     setOffset(pagination.offset + PAGE_SIZE);
     
+    // We only care about id, url, height, width
     const newResults = data.map((d) => { 
       const { url, height, width } = d.images.fixed_height;
       return {
@@ -58,11 +67,18 @@ function App() {
     setResults(dedupedResults);
   }
 
+  /**
+   * Called by the SearchBar when the query changes.
+   * 
+   * @param newQuery - the new query string
+   */
   const handleQueryChanged = (newQuery: string) => {
+    // reset results & set the new query into state
     setResults([]);
     setQuery(newQuery);
   }
 
+  // Do a refetch when the query state variable changes
   useEffect(() => {
     doFetch(query);
   }, [query])
